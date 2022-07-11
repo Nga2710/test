@@ -1,0 +1,76 @@
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+  html {
+    margin-right: 200px;
+  }
+    ::-webkit-scrollbar {
+      background-color: #262626;
+      width: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #171717;
+      border: 3px solid #777777;
+      border-radius: 5px;
+    }
+    textarea {
+      margin: 15px;
+      outline: none;
+      border: 4px solid #777777;
+      resize: none;
+      background-color: white;
+    }
+    * {
+      font-size: 40px;
+      text-color: black;
+      font-weight: bold;
+      user-select: none;
+    }
+    button:active {
+      outline: 4px solid yellow;
+    }
+  </style>
+</head>
+<body style="background-color: #171717; border: 4px solid #777777; border-radius: 10px;">
+  <textarea placeholder="{}" id="input" style="width: 75%; height: 400px"></textarea>
+  <button onclick="run()">Run</button>
+  <textarea placeholder="Output" id="output" disabled style="font-size: 20px; width: 90%; height: 600px"></textarea>
+  <script>
+    function run() {
+      var input = document.getElementById("input").value/*.replace(/\n/g, "+")*/.replace(/\u0020/g, "") + "+";
+      input = input.replace(/\n\n/, "\n").replace(/\u002b\u002b/g, "+").replace(/,/g, ".");
+      var so = "",cong = 0,group = "",outputa = "",outputi = 0,outputv = 0,groupMaLon = "",congMalon = 0,sumMalon = 0,soMalon;
+      for (let i = 0; i < input.length; i++) {
+        var char = input[i];
+        if (char == "\n") {
+          cong++;
+        }
+        if (cong != 5 && i+1 < input.length) group += char;
+        if (char == "\n") {
+          outputi += Number(so);
+          if (cong == 5) {
+            outputa += "\n" + group + "\n------\n" + parseFloat(outputi).toFixed(1) + "\n";
+            group = "";
+            sumMalon += outputi;
+            groupMaLon += outputi + "\n";
+            congMalon++;
+            outputi = 0;
+            cong = 0;
+          }
+          outputv += Number(so);
+          so = "";
+          continue;
+        } else
+          so += char;
+      }
+      if (outputi != 0) {
+        outputa += "\n" + group + "\n------\n" + parseFloat(outputi).toFixed(1) + "\n";
+      }
+      
+      output.value = "Output:" + parseFloat(outputv).toFixed(1) + "\n" + outputa;
+    }
+  </script>
+</body>
+</html>
