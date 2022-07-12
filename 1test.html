@@ -1,0 +1,106 @@
+<html lang="vi" style="margin-right: 0px; background-color: #262626">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#262626">
+  <style>
+    ::-webkit-scrollbar {
+      background-color: transparent;
+      width: 10px
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #171717;
+      border: 3px solid #777777;
+      border-radius: 5px
+    }
+    textarea {
+      margin: 15px;
+      outline: none;
+      border: 4px solid #777777;
+      resize: none;
+      background-color: white
+    }
+    * {
+      font-size: 40px;
+      text-color: black;
+      font-weight: bold;
+      user-select: none
+    }
+    button:active {
+      outline: 4px solid yellow
+    }
+  </style>
+</head>
+<body style="background-color: #171717; border: 4px solid #777777; border-radius: 10px">
+  <noscript>
+    <marquee behavior="scroll" direction="left">
+      <span style="font-size: 20px; color: #ff0000">Trình duyệt của bạn hiện không hỗ trợ script</span>
+    </marquee>
+  </noscript>
+  <div style="display: flex">
+    <textarea placeholder="Input" id="input" style="width: 75%; height: 400px"></textarea>
+    <div style="margin-top: 80px">
+      <button style="margin-bottom: 10px" onclick="run()">Run</button><br>
+      <button onclick="clean()">Clean</button>
+    </div>
+  </div>
+  <div style="display: flex">
+    <div style="margin-top: 90px">
+      <button onclick="copy()">Copy</button>
+    </div>
+    <textarea placeholder="Output" id="output" disabled style="font-size: 20px; width: 90%; height: 600px"></textarea>
+  </div>
+  <script>
+    function run() {
+      /*  var bo = false;
+      var item = "item";
+      const content = `
+      {
+      "format_version": "1.17.0",
+      "minecraft:item": {
+      "description": {
+      "category": "commands",
+      "identifier": "fakeitem:${item}"
+      },
+      "components": {
+      "minecraft:display_name": {
+      "value": "item.${item}.name"
+      },
+      "minecraft:icon": {
+        "texture": "${item}"
+      }
+      "minecraft:max_stack_size": 64,
+      "minecraft:hand_equipped": ${bo}
+      }
+      }
+      }`;
+      var iList = ["a",
+        "b",
+        "c"];
+      for (item in iList) downF(item, content)*/
+      console.log("a")
+    }
+    downF = (fileName, content) => {
+      const element = document.createElement('a');
+      const blob = new Blob([content],
+        {
+          type: 'plain/text'
+        });
+      const fileUrl = URL.createObjectURL(blob);
+      element.setAttribute('href',
+        fileUrl);
+      element.setAttribute('download',
+        `${fileName}.json`);
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click();
+      document.body.removeChild(element)
+    }
+    clean = () => input.value = ""
+    copy = () => {
+      let copy = document.getElementById("output").innerHTML;
+      navigator.clipboard.writeText(copy);
+    };
+  </script>
+</body>
+</html>
